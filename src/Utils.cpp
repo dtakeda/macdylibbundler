@@ -32,6 +32,8 @@ THE SOFTWARE.
 #include <stdio.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <boost/filesystem.hpp>
+
 using namespace std;
 
 /*
@@ -118,13 +120,16 @@ void copyFile(string from, string to)
     string override_permission = string(override ? "-f " : "-n ");
         
     // copy file to local directory
+/*
     string command = string("cp ") + override_permission + from + string(" ") + to;
     if( systemp( command ) != 0 )
     {
         cerr << "\n\nError : An error occured while trying to copy file " << from << " to " << to << endl;
         exit(1);
     }
-    
+*/
+	boost::filesystem::copy_file(from, to);
+ 
     // give it write permission
     string command2 = string("chmod +w ") + to;
     if( systemp( command2 ) != 0 )
